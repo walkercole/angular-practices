@@ -14,14 +14,14 @@
 </head>
 <body>
     <h1>Angular To-Do List!</h1>
-    <div ng-controller="todoController">
+    <div class="col-md-4" ng-controller="todoController">
        <form name="frm" ng-submit="addTodo()">
             <input type="text" name="newTodo" ng-model="newTodo" required />
             <button ng-disabled="frm.$invalid">Add to List</button>
        </form>
-        <button ng-click="clearCompleted()">Clear Completed</button>
-        <ul>
-            <li ng-repeat="todo in todos">
+        <button class="btn btn-sm btn-primary btn-inline" ng-click="clearCompleted()">Clear Completed</button>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="todo in todos">
                 <input type="checkbox" ng-model="todo.done" />
                 <span ng-class="{'done':todo.done}">{{todo.title}}</span>
             </li>
