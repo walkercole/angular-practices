@@ -1,4 +1,5 @@
-<html ng-app>
+<!doctype HTML>
+<html ng-app="Todo">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -6,11 +7,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
-    <script type="text/javascript" src="todo.js"></script>
     <title>Angular Practice</title>
+    <style>
+        .done{text-decoration: line-through;color: #ccc;}
+    </style>
 </head>
 <body>
-    <h1>Hello, World!</h1>
-    <div ng-controller="TodoCtrl"></div>
+    <h1>Angular To-Do List!</h1>
+    <div ng-controller="todoController">
+       <form name="frm" ng-submit="addTodo()">
+            <input type="text" name="newTodo" ng-model="newTodo" required />
+            <button ng-disabled="frm.$invalid">Add to List</button>
+       </form>
+        <button ng-click="clearCompleted()">Clear Completed</button>
+        <ul>
+            <li ng-repeat="todo in todos">
+                <input type="checkbox" ng-model="todo.done" />
+                <span ng-class="{'done':todo.done}">{{todo.title}}</span>
+            </li>
+        </ul>
+    </div>
+<script src="todo.js"></script>   
 </body>
 </html>
