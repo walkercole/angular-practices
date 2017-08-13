@@ -9,9 +9,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="todo.js"></script>  
-    <script src="order.js"></script>  
-    <script src="inline.js"></script>   
+    <script src="todo.js"></script> 
+    <link rel="stylesheet" href="style.css">
     <title>Angular Practice</title>
     <style>
         .done{text-decoration: line-through;color: #ccc;}
@@ -27,19 +26,19 @@
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">To-Do List</a></li>
       <li><a href="#">Inline Editor</a></li>
-      <li><a href="#">Page 2</a></li>
-      <li><a href="#">Page 3</a></li>
+      <li><a href="#">Order Form</a></li>
+      <li><a href="#">Filter Search</a></li>
     </ul>
   </div>
 </nav>
 <h4>Angular To-Do List!</h4>
-<div class="col-md-4" ng-app ng-controller="todoController">
+<div ng-app ng-controller="todoController">
     <form name="frm" ng-submit="addTodo()">
         <input type="text" name="newTodo" ng-model="newTodo" required />
         <button class="btn btn-success btn-sm" ng-disabled="frm.$invalid">Add to List</button>
         <button type="button" class="btn btn-sm btn-primary btn-inline" ng-click="clearCompleted()">Clear Completed</button>   
     </form><br>
-    <ul class="list-group">
+    <ul class="list-group wrapp">
         <li class="list-group-item" ng-repeat="todo in todos">
             <input type="checkbox" ng-model="todo.done" />
             <span ng-class="{'done':todo.done}">{{todo.title}}</span>
@@ -47,14 +46,14 @@
     </ul>
 </div>
 <h4>Inline Text Editor</h4>
-<div class="col-md-4" id="main" ng-app ng-controller="InlineEditorController" ng-click="hideTooltip()">
+<div id="main" ng-app ng-controller="InlineEditorController" ng-click="hideTooltip()">
   <div class="tooltip" ng-click="$event.stopPropagation()" ng-show="showtooltip">
     <input type="text" ng-model="value" />
   </div>
-  <p ng-click="toggleTooltip($event)">{{value}}</p>      
+  <p class="para" ng-click="toggleTooltip($event)">{{value}}</p>      
 </div>
 <h4>Order Form</h4>
-<form ng-app ng-controller="OrderFormController" class="col-md-4">
+<form class="myform" ng-app ng-controller="OrderFormController">
   <h1> Services </h1>
   <ul>
     <li ng-repeat="service in services" ng-click="toggleActive(service)" ng-class="{active:service.active}">
@@ -65,5 +64,17 @@
     Total: <span>{{total() | currency}} </span>
   </div>
 </form>
+<h4>Filter Search</h4>
+<div ng-app="instantSearch" ng-controller="InstantSearchController">
+  <div class="bar">
+    <input type="text" ng-model="searchString" placeholder="Enter your search terms.."/>
+  </div>
+  <ul class="wrapp filter-ul">
+    <li ng-repeat="i in items | searchFor:searchString">
+      <a href="{{i.url}}"><img ng-src="{{i.image}}" alt="image"/></a>
+      <p>{{i.title}}</p>
+    </li>
+  </ul>
+</div>
 </body>
 </html>
